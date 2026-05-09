@@ -1,0 +1,12 @@
+# pixi environments
+.pixi/*
+**/.pixi/*
+!.pixi/config.toml
+*.conda
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info

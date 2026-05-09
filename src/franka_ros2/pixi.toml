@@ -1,0 +1,22 @@
+[workspace]
+channels = [
+  "https://prefix.dev/pixi-build-backends",
+  "https://prefix.dev/robostack-humble",
+  "https://conda.anaconda.org/conda-forge",
+]
+platforms = ["linux-64"]
+preview = ["pixi-build"]
+
+[dependencies]
+python = "3.12.*"
+libfranka = { path = "../libfranka" }
+ros-humble-franka-description = { path = "../franka_description" }
+
+ros-humble-franka-msgs = { path = "franka_msgs" }
+ros-humble-franka-hardware = { path = "franka_hardware" }
+ros-humble-franka-gripper = { path = "franka_gripper" }
+ros-humble-franka-semantic-components = { path = "franka_semantic_components" }
+ros-humble-franka-robot-state-broadcaster = { path = "franka_robot_state_broadcaster" }
+ros-humble-franka-example-controllers = { path = "franka_example_controllers" }
+ros-humble-franka-bringup = { path = "franka_bringup" }
+ros-humble-franka-fr3-moveit-config = { path = "franka_fr3_moveit_config" }

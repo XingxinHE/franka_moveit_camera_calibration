@@ -1,0 +1,57 @@
+[package.build.source]
+git = "https://github.com/frankarobotics/libfranka.git"
+
+# libfranka 0.19.0 commit hash
+rev = "4df37dd2b527f41ef34b76d6d4d3805864b09993"
+
+[package.build.backend]
+channels = [
+  "https://prefix.dev/pixi-build-backends",
+  "https://prefix.dev/robostack-humble",
+  "https://conda.anaconda.org/conda-forge",
+]
+name = "pixi-build-cmake"
+version = "*"
+
+[package.build.config]
+extra-args = [
+    "-DBUILD_TESTS=OFF",
+    "-DBUILD_EXAMPLES=OFF",
+    "-DCMAKE_BUILD_TYPE=Release",
+    "-DEIGEN3_INCLUDE_DIRS=$PREFIX/include/eigen3",
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
+]
+
+[package]
+name = "libfranka"
+version = "0.19.0"
+
+# Libraries required during build (link against these)
+[package.host-dependencies]
+console_bridge = ">=1.0"
+eigen = ">=3.4"
+poco = ">=1.15,<1.16.0a0"
+libpinocchio = ">=3.9.0,<3.10.0a0"
+tinyxml2 = ">=11.0,<11.1.0a0"
+urdfdom = ">=5.1,<5.2.0a0"
+fmt = ">=11.0"
+
+# Runtime shared libraries
+[package.run-dependencies]
+poco = ">=1.15,<1.16.0a0"
+libpinocchio = ">=3.9.0,<3.10.0a0"
+tinyxml2 = ">=11.0,<11.1.0a0"
+urdfdom = ">=5.1,<5.2.0a0"
+console_bridge = ">=1.0"
+fmt = ">=11.0"
+
+[workspace]
+channels = [
+  "https://prefix.dev/robostack-humble",
+  "https://conda.anaconda.org/conda-forge",
+]
+platforms = ["linux-64"]
+preview = ["pixi-build"]
+
+[dependencies]
+libfranka = { path = "." }

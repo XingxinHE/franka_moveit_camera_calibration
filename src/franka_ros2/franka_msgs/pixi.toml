@@ -1,0 +1,35 @@
+[package.build.source]
+git = "https://github.com/frankarobotics/franka_ros2.git"
+rev = "7ef0ab00964a0d2b5e19e9292bbcef9f32dda811"
+subdirectory = "franka_msgs"
+
+[package.build.backend]
+channels = [
+  "https://prefix.dev/pixi-build-backends",
+  "https://prefix.dev/robostack-humble",
+  "https://conda.anaconda.org/conda-forge",
+]
+name = "pixi-build-ros"
+version = "*"
+
+[package]
+name = "ros-humble-franka-msgs"
+version = "2.2.0"
+
+[package.build.config]
+distro = "humble"
+
+[package.build-dependencies]
+python = "3.12.*"
+
+[package.host-dependencies]
+python = "3.12.*"
+
+[workspace]
+channels = [
+  "https://prefix.dev/pixi-build-backends",
+  "https://prefix.dev/robostack-humble",
+  "https://conda.anaconda.org/conda-forge",
+]
+platforms = ["linux-64"]
+preview = ["pixi-build"]

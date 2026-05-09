@@ -1,0 +1,85 @@
+[workspace]
+authors = ["Xingxin HE <xingxin.he@connect.ust.hk>"]
+name = "franka_moveit_camera_calibration"
+platforms = ["linux-64"]
+version = "0.1.0"
+preview = ["pixi-build"]
+channels = [
+    "https://prefix.dev/pixi-build-backends",
+    "https://prefix.dev/robostack-humble",
+    "https://prefix.dev/conda-forge"
+]
+
+[tasks]
+fr3-calib-launch = "ros2 launch franka_fr3_moveit_config moveit.launch.py robot_ip:=172.16.0.55 load_gripper:=true ee_id:=franka_hand use_fake_hardware:=false fake_sensor_commands:=false"
+
+gripper-home = "ros2 action send_goal -f /franka_gripper/homing franka_msgs/action/Homing '{}'"
+gripper-open = "ros2 action send_goal -f /franka_gripper/move franka_msgs/action/Move '{width: 0.08, speed: 0.03}'"
+gripper-grasp-board = "bash -lc 'ros2 action send_goal -f /franka_gripper/grasp franka_msgs/action/Grasp \"{width: ${WIDTH:-0.01}, speed: ${SPEED:-0.03}, force: ${FORCE:-20.0}, epsilon: {inner: ${EPS_INNER:-0.01}, outer: ${EPS_OUTER:-0.01}}}\"'"
+
+arm-off = "ros2 control switch_controllers --controller-manager /controller_manager --deactivate fr3_arm_controller --strict"
+arm-on = "ros2 control switch_controllers --controller-manager /controller_manager --activate fr3_arm_controller --strict"
+
+payload-set-calib-kit = "bash -lc 'ros2 service call /service_server/set_load franka_msgs/srv/SetLoad \"{mass: ${PAYLOAD_MASS:-0.197}, center_of_mass: [${PAYLOAD_CX:-0.03}, ${PAYLOAD_CY:--0.02}, ${PAYLOAD_CZ:-0.08}], load_inertia: [${PAYLOAD_IXX:-0.001}, ${PAYLOAD_IXY:-0.0}, ${PAYLOAD_IXZ:-0.0}, ${PAYLOAD_IXY:-0.0}, ${PAYLOAD_IYY:-0.001}, ${PAYLOAD_IYZ:-0.0}, ${PAYLOAD_IXZ:-0.0}, ${PAYLOAD_IYZ:-0.0}, ${PAYLOAD_IZZ:-0.0015}]}\"'"
+payload-reset = "ros2 service call /service_server/set_load franka_msgs/srv/SetLoad '{mass: 0.0, center_of_mass: [0.0, 0.0, 0.0], load_inertia: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]}'"
+payload-state = "ros2 topic echo --once /franka_robot_state_broadcaster/robot_state --field inertia_load"
+
+gravity-load = "ros2 run controller_manager spawner gravity_compensation_example_controller --controller-manager /controller_manager --controller-manager-timeout 60 --controller-type franka_example_controllers/GravityCompensationExampleController --inactive"
+gravity-on = "ros2 control switch_controllers --controller-manager /controller_manager --deactivate fr3_arm_controller --activate gravity_compensation_example_controller --strict"
+gravity-off = "ros2 control switch_controllers --controller-manager /controller_manager --deactivate gravity_compensation_example_controller --activate fr3_arm_controller --strict"
+
+[activation.env]
+CPU_COUNT="8"
+ROS_DOMAIN_ID = "123"
+RMW_IMPLEMENTATION = "rmw_cyclonedds_cpp"    # or use rmw_zenoh_cpp
+ZENOH_SESSION_CONFIG_URI="./zenoh_client.json5"
+
+[dependencies]
+python = "3.12.*"
+ros-humble-ros-base = "*"
+ros-humble-moveit-calibration-plugins = { path = "src/moveit_calibration_plugins" }
+ros-humble-moveit-calibration-gui = { path = "src/moveit_calibration_gui" }
+libfranka = { path = "src/libfranka" }
+ros-humble-franka-description = { path = "src/franka_description" }
+ros-humble-franka-msgs = { path = "src/franka_ros2/franka_msgs" }
+ros-humble-franka-hardware = { path = "src/franka_ros2/franka_hardware" }
+ros-humble-franka-gripper = { path = "src/franka_ros2/franka_gripper" }
+ros-humble-franka-semantic-components = { path = "src/franka_ros2/franka_semantic_components" }
+ros-humble-franka-robot-state-broadcaster = { path = "src/franka_ros2/franka_robot_state_broadcaster" }
+ros-humble-franka-example-controllers = { path = "src/franka_ros2/franka_example_controllers" }
+ros-humble-franka-bringup = { path = "src/franka_ros2/franka_bringup" }
+ros-humble-franka-fr3-moveit-config = { path = "src/franka_ros2/franka_fr3_moveit_config" }
+ros-humble-ros2controlcli = "*"
+ros-humble-rmw-zenoh-cpp = ">=0.1.2,<0.2"
+ros-humble-rmw-cyclonedds-cpp = ">=1.3.4,<2"
+ros-humble-rqt-image-view = ">=1.2.0,<2"
+ros-humble-rqt-gui = ">=1.1.7,<2"
+
+[feature.realsense.system-requirements]
+libc = { family = "glibc", version = "2.34" }
+
+[feature.realsense.activation.env]
+CPU_COUNT = "8"
+ROS_DOMAIN_ID = "100"
+RMW_IMPLEMENTATION = "rmw_zenoh_cpp"    # or use rmw_zenoh_cpp
+ZENOH_SESSION_CONFIG_URI = "./zenoh_client.json5"
+
+[feature.realsense.dependencies]
+python = "3.12.*"
+ros-humble-ros-base = "*"
+ros-humble-rmw-zenoh-cpp = ">=0.1.2,<0.2"
+ros-humble-rmw-cyclonedds-cpp = ">=1.3.4,<2"
+ros-humble-librealsense2 = "*"
+ros-humble-realsense2-camera = "*"
+ros-humble-realsense2-camera-msgs = "*"
+ros-humble-realsense2-description = "*"
+ros-humble-compressed-image-transport = "*"
+ros-humble-rqt-image-view = ">=1.2.0,<2"
+ros-humble-rqt-gui = ">=1.1.7,<2"
+
+[feature.realsense.tasks]
+launch-one-camera = "ros2 launch realsense2_camera rs_launch.py camera_namespace:=/ camera_name:=robot0_eye_in_hand serial_no:=_405622074798 initial_reset:=false enable_depth:=false rgb_camera.color_profile:=640x480x30"
+launch-multiple-cameras = "bash scripts/launch_multiple_cameras.sh"
+
+[environments]
+realsense = { features = ["realsense"], no-default-feature = true }

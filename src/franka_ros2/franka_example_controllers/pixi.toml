@@ -1,0 +1,64 @@
+[package.build.source]
+git = "https://github.com/frankarobotics/franka_ros2.git"
+rev = "7ef0ab00964a0d2b5e19e9292bbcef9f32dda811"
+subdirectory = "franka_example_controllers"
+
+[package.build.backend]
+channels = [
+  "https://prefix.dev/pixi-build-backends",
+  "https://prefix.dev/robostack-humble",
+  "conda-forge",
+]
+name = "pixi-build-ros"
+version = "*"
+
+[package.build.config]
+distro = "humble"
+extra-package-mappings = [
+    { libfranka = { conda = "libfranka" } },
+    { pinocchio = { conda = "libpinocchio" } },
+]
+
+[package.build-dependencies]
+python = "3.12.*"
+libpinocchio = ">=3.9.0,<3.10.0a0"
+ros-humble-franka-msgs = { path = "../franka_msgs" }
+ros-humble-franka-semantic-components = { path = "../franka_semantic_components" }
+ros-humble-ament-index-cpp = "*"
+ros-humble-hardware-interface = "*"
+ros-humble-moveit-core = "*"
+ros-humble-moveit-msgs = "*"
+ros-humble-rclcpp-action = "*"
+
+[package.host-dependencies]
+python = "3.12.*"
+libfranka = { path = "../../libfranka" }
+ros-humble-franka-msgs = { path = "../franka_msgs" }
+ros-humble-franka-semantic-components = { path = "../franka_semantic_components" }
+ros-humble-ament-index-cpp = "*"
+ros-humble-hardware-interface = "*"
+ros-humble-moveit-core = "*"
+ros-humble-moveit-msgs = "*"
+ros-humble-rclcpp-action = "*"
+libpinocchio = ">=3.9.0,<3.10.0a0"
+eigen = "*"
+
+[package.run-dependencies]
+libfranka = { path = "../../libfranka" }
+libpinocchio = ">=3.9.0,<3.10.0a0"
+ros-humble-franka-msgs = { path = "../franka_msgs" }
+ros-humble-franka-semantic-components = { path = "../franka_semantic_components" }
+ros-humble-ament-index-cpp = "*"
+ros-humble-hardware-interface = "*"
+ros-humble-moveit-core = "*"
+ros-humble-moveit-msgs = "*"
+ros-humble-rclcpp-action = "*"
+
+[workspace]
+channels = [
+  "https://prefix.dev/pixi-build-backends",
+  "https://prefix.dev/robostack-humble",
+  "conda-forge",
+]
+platforms = ["linux-64"]
+preview = ["pixi-build"]
