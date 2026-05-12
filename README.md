@@ -746,3 +746,13 @@ Ta da! You have now completed eye-in-hand and eye-to-hand calibration.
 <p align="center">
   <img src="assets/base-camera-tf-overview.png" />
 </p>
+
+# 11: License
+
+This repository's original code, documentation, and assets are licensed under the Apache License 2.0 unless otherwise noted. See [LICENSE](./LICENSE).
+
+This project installs and uses these upstream projects as dependencies:
+
+- `franka_ros2` and `libfranka`, licensed under Apache-2.0
+- MoveIt Calibration, licensed under BSD-3-Clause
+
