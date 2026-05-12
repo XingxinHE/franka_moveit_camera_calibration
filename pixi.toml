@@ -11,7 +11,7 @@ channels = [
 ]
 
 [tasks]
-fr3-calib-launch = "ros2 launch franka_fr3_moveit_config moveit.launch.py robot_ip:=172.16.0.55 load_gripper:=true ee_id:=franka_hand use_fake_hardware:=false fake_sensor_commands:=false"
+fr3-calib-launch = "ros2 launch franka_fr3_moveit_config moveit.launch.py load_gripper:=true ee_id:=franka_hand use_fake_hardware:=false fake_sensor_commands:=false"
 
 gripper-home = "ros2 action send_goal -f /franka_gripper/homing franka_msgs/action/Homing '{}'"
 gripper-open = "ros2 action send_goal -f /franka_gripper/move franka_msgs/action/Move '{width: 0.08, speed: 0.03}'"
