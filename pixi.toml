@@ -61,8 +61,8 @@ libc = { family = "glibc", version = "2.34" }
 
 [feature.realsense.activation.env]
 CPU_COUNT = "8"
-ROS_DOMAIN_ID = "100"
-RMW_IMPLEMENTATION = "rmw_zenoh_cpp"    # or use rmw_zenoh_cpp
+ROS_DOMAIN_ID = "123"
+RMW_IMPLEMENTATION = "rmw_cyclonedds_cpp"    # or use rmw_zenoh_cpp
 ZENOH_SESSION_CONFIG_URI = "./zenoh_client.json5"
 
 [feature.realsense.dependencies]
