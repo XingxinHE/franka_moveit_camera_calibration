@@ -1,45 +1,39 @@
 [package.build.source]
 git = "https://github.com/frankarobotics/franka_ros2.git"
-rev = "7ef0ab00964a0d2b5e19e9292bbcef9f32dda811"
+rev = "ce8cc0bd853092b936be12f97895fb31294a5743"
 subdirectory = "franka_robot_state_broadcaster"
 
 [package.build.backend]
 channels = [
   "https://prefix.dev/pixi-build-backends",
-  "https://prefix.dev/robostack-humble",
-  "https://conda.anaconda.org/conda-forge",
+  "https://prefix.dev/robostack-jazzy",
+  "https://prefix.dev/conda-forge",
 ]
 name = "pixi-build-ros"
 version = "*"
 
 [package.build.config]
-distro = "humble"
+distro = "jazzy"
 
 [package.build-dependencies]
-python = "3.12.*"
-ros-humble-franka-msgs = { path = "../franka_msgs" }
-ros-humble-franka-semantic-components = { path = "../franka_semantic_components" }
-ros-humble-controller-manager = "*"
-ros-humble-visualization-msgs = "*"
+ros-jazzy-franka-msgs = { path = "../franka_msgs" }
+ros-jazzy-franka-semantic-components = { path = "../franka_semantic_components" }
 
 [package.host-dependencies]
-python = "3.12.*"
-ros-humble-franka-msgs = { path = "../franka_msgs" }
-ros-humble-franka-semantic-components = { path = "../franka_semantic_components" }
-ros-humble-controller-manager = "*"
-ros-humble-visualization-msgs = "*"
+ros-jazzy-franka-msgs = { path = "../franka_msgs" }
+ros-jazzy-franka-semantic-components = { path = "../franka_semantic_components" }
+ros-jazzy-controller-manager = "*"
+ros-jazzy-visualization-msgs = "*"
 
 [package.run-dependencies]
-ros-humble-franka-msgs = { path = "../franka_msgs" }
-ros-humble-franka-semantic-components = { path = "../franka_semantic_components" }
-ros-humble-controller-manager = "*"
-ros-humble-visualization-msgs = "*"
+ros-jazzy-franka-msgs = { path = "../franka_msgs" }
+ros-jazzy-franka-semantic-components = { path = "../franka_semantic_components" }
 
 [workspace]
 channels = [
   "https://prefix.dev/pixi-build-backends",
-  "https://prefix.dev/robostack-humble",
-  "https://conda.anaconda.org/conda-forge",
+  "https://prefix.dev/robostack-jazzy",
+  "https://prefix.dev/conda-forge",
 ]
 platforms = ["linux-64"]
 preview = ["pixi-build"]

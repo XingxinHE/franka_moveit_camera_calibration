@@ -1,22 +1,25 @@
 [package.build.source]
 git = "https://github.com/XingxinHE/moveit_calibration.git"
-rev = "45671147c6a443acd61a27aa796305093d2ea590"
+rev = "9bf31843963c50f87d3bc439416e552220b156fe"
 subdirectory = "moveit_calibration_plugins"
 
 [package.build.backend]
 channels = [
     "https://prefix.dev/pixi-build-backends",
-    "https://prefix.dev/robostack-humble",
+    "https://prefix.dev/robostack-jazzy",
     "https://prefix.dev/conda-forge"
 ]
 name = "pixi-build-ros"
 version = "*"
 
 [package.build.config]
-distro = "humble"
+distro = "jazzy"
+extra-package-mappings = [
+    { "libopencv-dev" = { conda = "libopencv >=4.12,<4.13" } },
+]
 
 [package]
-name = "ros-humble-moveit-calibration-plugins"
+name = "ros-jazzy-moveit-calibration-plugins"
 version = "2.0.0"
 
 [package.build-dependencies]
@@ -30,11 +33,11 @@ python = "3.12.*"
 
 [workspace]
 channels = [
-    "https://prefix.dev/robostack-humble",
+    "https://prefix.dev/robostack-jazzy",
     "https://prefix.dev/conda-forge"
 ]
 platforms = ["linux-64"]
 preview = ["pixi-build"]
 
 [dependencies]
-ros-humble-moveit-calibration-plugins = { path = "." }
+ros-jazzy-moveit-calibration-plugins = { path = "." }

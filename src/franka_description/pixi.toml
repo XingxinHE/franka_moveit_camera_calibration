@@ -2,31 +2,25 @@
 git = "https://github.com/frankarobotics/franka_description.git"
 
 # franka_description 2.6.0 commit hash
-rev = "1ccde30d5a30a710f335c9f6545528447a04bc7c"
+rev = "72baf5bf4e88eaec27f0eb61be1b20a001abf2ab"
 
 [package.build.backend]
 channels = [
   "https://prefix.dev/pixi-build-backends",
-  "https://prefix.dev/robostack-humble",
-  "https://conda.anaconda.org/conda-forge",
+  "https://prefix.dev/robostack-jazzy",
+  "https://prefix.dev/conda-forge",
 ]
 name = "pixi-build-ros"
 version = "*"
 
 [package.build.config]
-distro = "humble"
-
-[package.build-dependencies]
-python = "3.12.*"
-
-[package.host-dependencies]
-python = "3.12.*"
+distro = "jazzy"
 
 [workspace]
 channels = [
   "https://prefix.dev/pixi-build-backends",
-  "https://prefix.dev/robostack-humble",
-  "https://conda.anaconda.org/conda-forge",
+  "https://prefix.dev/robostack-jazzy",
+  "https://prefix.dev/conda-forge",
 ]
 platforms = ["linux-64"]
 preview = ["pixi-build"]

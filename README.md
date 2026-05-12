@@ -59,7 +59,7 @@ Before you continue, make sure you have:
 Clone this repo:
 
 ```shell
-git clone https://github.com/XingxinHE/franka_moveit_camera_calibration.git -b humble
+git clone https://github.com/XingxinHE/franka_moveit_camera_calibration.git -b jazzy
 ```
 
 Install [pixi](https://pixi.prefix.dev/latest/installation/):
@@ -93,7 +93,7 @@ Follow these steps.
 (1) Clone this repo on both computer A and computer B:
 
 ```shell
-git clone https://github.com/XingxinHE/franka_moveit_camera_calibration.git -b humble
+git clone https://github.com/XingxinHE/franka_moveit_camera_calibration.git -b jazzy
 ```
 
 (2) Use the same settings on all computers in [`pixi.toml`](./pixi.toml).

@@ -1,39 +1,35 @@
 [package.build.source]
 git = "https://github.com/frankarobotics/franka_ros2.git"
-rev = "7ef0ab00964a0d2b5e19e9292bbcef9f32dda811"
+rev = "ce8cc0bd853092b936be12f97895fb31294a5743"
 subdirectory = "franka_bringup"
 
 [package.build.backend]
 channels = [
   "https://prefix.dev/pixi-build-backends",
-  "https://prefix.dev/robostack-humble",
-  "https://conda.anaconda.org/conda-forge",
+  "https://prefix.dev/robostack-jazzy",
+  "https://prefix.dev/conda-forge",
 ]
 name = "pixi-build-ros"
 version = "*"
 
 [package.build.config]
-distro = "humble"
-
-[package.build-dependencies]
-python = "3.12.*"
+distro = "jazzy"
 
 [package.host-dependencies]
-python = "3.12.*"
-ros-humble-franka-description = { path = "../../franka_description" }
-ros-humble-franka-hardware = { path = "../franka_hardware" }
-ros-humble-franka-robot-state-broadcaster = { path = "../franka_robot_state_broadcaster" }
+ros-jazzy-franka-description = { path = "../../franka_description" }
+ros-jazzy-franka-hardware = { path = "../franka_hardware" }
+ros-jazzy-franka-robot-state-broadcaster = { path = "../franka_robot_state_broadcaster" }
 
 [package.run-dependencies]
-ros-humble-franka-description = { path = "../../franka_description" }
-ros-humble-franka-hardware = { path = "../franka_hardware" }
-ros-humble-franka-robot-state-broadcaster = { path = "../franka_robot_state_broadcaster" }
+ros-jazzy-franka-description = { path = "../../franka_description" }
+ros-jazzy-franka-hardware = { path = "../franka_hardware" }
+ros-jazzy-franka-robot-state-broadcaster = { path = "../franka_robot_state_broadcaster" }
 
 [workspace]
 channels = [
   "https://prefix.dev/pixi-build-backends",
-  "https://prefix.dev/robostack-humble",
-  "https://conda.anaconda.org/conda-forge",
+  "https://prefix.dev/robostack-jazzy",
+  "https://prefix.dev/conda-forge",
 ]
 platforms = ["linux-64"]
 preview = ["pixi-build"]
