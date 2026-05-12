@@ -18,6 +18,14 @@ Then you can use MoveIt Calibration with a Franka Research 3 robot in either lay
 - [eye-to-hand](#61-choose-eye-in-hand-or-eye-to-hand) or
 - [eye-in-hand](#61-choose-eye-in-hand-or-eye-to-hand)
 
+# 0: Compatibility
+
+This `humble` branch pins the Franka stack to:
+
+| franka_ros2 Version | libfranka Version | franka_description Version |
+| ------------------- | ----------------- | -------------------------- |
+| 2.2.0               | 0.19.0            | 1.3.0                      |
+
 # 1: Prepare Materials
 
 > [!NOTE]
