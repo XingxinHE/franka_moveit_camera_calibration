@@ -104,6 +104,13 @@ ROS_DOMAIN_ID = "123"
 RMW_IMPLEMENTATION = "rmw_cyclonedds_cpp"    # or use rmw_zenoh_cpp
 ```
 
+
+
+> [!CAUTION]
+> There are two `[activation.env]` in the [`pixi.toml`](./pixi.toml). One is for the robot environment and the other is for the realsense environment. Make sure they are aligned.
+
+
+
 <details>
 <summary><strong>Using <code>rmw_zenoh_cpp</code> across two machines</strong></summary>
 If DDS discovery is unreliable across the two machines, use `rmw_zenoh_cpp` instead.
