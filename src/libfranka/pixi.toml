@@ -34,7 +34,7 @@ poco = ">=1.12"
 pinocchio = ">=3.0"
 tinyxml2 = ">=10.0"
 urdfdom = ">=4.0.1,<4.1.0a0"
-fmt = ">=11.0"
+fmt = ">=12.1,<12.2"
 
 # Runtime shared libraries
 [package.run-dependencies]
@@ -43,7 +43,7 @@ pinocchio = ">=3.0"
 tinyxml2 = ">=10.0"
 urdfdom = ">=4.0.1,<4.1.0a0"
 console_bridge = ">=1.0"
-fmt = ">=11.0"
+fmt = ">=12.1,<12.2"
 
 [workspace]
 channels = [

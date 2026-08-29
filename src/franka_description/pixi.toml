@@ -16,6 +16,15 @@ version = "*"
 [package.build.config]
 distro = "jazzy"
 
+[package.build-dependencies]
+ros2-distro-mutex = "0.14.*"
+
+[package.host-dependencies]
+ros2-distro-mutex = "0.14.*"
+
+[package.run-dependencies]
+ros2-distro-mutex = "0.14.*"
+
 [workspace]
 channels = [
   "https://prefix.dev/pixi-build-backends",

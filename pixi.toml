@@ -37,6 +37,7 @@ ZENOH_SESSION_CONFIG_URI="./zenoh_client.json5"
 [dependencies]
 python = "3.12.*"
 filelock = "*"
+ros2-distro-mutex = "0.14.*"
 ros-jazzy-ros-base = "*"
 ros-jazzy-moveit-calibration-plugins = { path = "src/moveit_calibration_plugins" }
 ros-jazzy-moveit-calibration-gui = { path = "src/moveit_calibration_gui" }
