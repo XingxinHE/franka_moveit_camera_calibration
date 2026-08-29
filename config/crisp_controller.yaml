@@ -1,0 +1,50 @@
+/**/cartesian_controller:
+  ros__parameters:
+    joints:
+      - fr3_joint1
+      - fr3_joint2
+      - fr3_joint3
+      - fr3_joint4
+      - fr3_joint5
+      - fr3_joint6
+      - fr3_joint7
+    base_frame: fr3_link0
+    end_effector_frame: fr3_link8
+    use_operational_space: false
+    use_friction: false
+    use_coriolis_compensation: false
+    use_gravity_compensation: false
+    use_local_jacobian: false
+    limit_error: true
+    limit_torques: true
+    max_delta_tau: 0.5
+    task:
+      k_pos_x: 500.0
+      k_pos_y: 500.0
+      k_pos_z: 500.0
+      k_rot_x: 30.0
+      k_rot_y: 30.0
+      k_rot_z: 30.0
+      error_clip:
+        x: 0.1
+        y: 0.1
+        z: 0.1
+        rx: 0.5
+        ry: 0.5
+        rz: 0.5
+    nullspace:
+      stiffness: 1.0
+      damping: -1.0
+      regularization: 0.000001
+      projector_type: kinematic
+      max_tau: 5.0
+    filter:
+      target_pose: 0.1
+      q: 0.5
+      dq: 0.5
+      q_ref: 0.5
+      output_torque: 0.5
+    joint_limit_repulsion:
+      enabled: true
+      safe_range: 0.1
+      max_torque: 5.0

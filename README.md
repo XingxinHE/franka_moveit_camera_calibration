@@ -361,17 +361,45 @@ in this tab:
 > [!IMPORTANT]
 > For "longest board side" and "measured marker size", make sure the values match the measurements you took in [1.3 Measurement](#13-measurement).
 
-When the target parameters are set, choose one robot-control method: [7.1.1 MoveIt Motion Planning](#711-option-a-moveit-motion-planning) or [7.1.2 Gravity Compensation](#712-option-b-gravity-compensation).
+When the target parameters are set, choose one robot-control method: [7.1.1 Xbox Gamepad](#711-option-a-xbox-gamepad-recommended), [7.1.2 MoveIt Motion Planning](#712-option-b-moveit-motion-planning), or [7.1.3 Gravity Compensation](#713-option-c-gravity-compensation).
 
 # 7: Position the Robot and Check Detection
 
 ## 7.1 Position the Robot for Target Visibility
 
-You now have two options for moving the robot so that the camera can see the ChArUco board.
+Choose only one method for moving the robot. Xbox teleoperation is recommended because it lets you adjust all six `fr3_link8` pose axes while watching the ChArUco detection. MoveIt motion planning and gravity compensation remain available as alternatives.
 
-Choose only one option. Use [MoveIt Motion Planning](#711-option-a-moveit-motion-planning) for the normal workflow, or [Gravity Compensation](#712-option-b-gravity-compensation) if you want to physically guide the robot.
+### 7.1.1 Option A: Xbox Gamepad (Recommended)
 
-### 7.1.1 Option A: MoveIt Motion Planning
+Keep the `fr3-calib-launch` terminal from [5: Launch the Robot](#5-launch-the-robot) open. Connect an Xbox controller to the same computer, then run this in a new terminal:
+
+```shell
+pixi run xbox-teleop
+```
+
+This command loads the CRISP Cartesian controller, switches away from `fr3_arm_controller`, starts the ROS `joy_node`, and commands `fr3_link8` directly. It keeps this repo's existing root topic and frame names.
+
+| Xbox input | Motion expressed in `fr3_link0` |
+| :--------- | :------------------------------ |
+| RT / LT | `+X` / `-X` translation |
+| Right stick X / Y | `Y` / `Z` translation |
+| Left stick X / Y | Roll / pitch |
+| RB / LB | Positive / negative yaw |
+
+The controls act immediately; there is no enable button. Release the controls to hold the realized pose. A, X, and the D-pad are unused, so the gamepad cannot accidentally release the calibration board from the gripper.
+
+> [!IMPORTANT]
+> Do not use MoveIt `Plan` or `Execute`, gravity compensation, or another pose publisher while `xbox-teleop` is running.
+
+Press `Ctrl-C` in the `xbox-teleop` terminal when you finish. The command stops publishing and switches control back to `fr3_arm_controller`. If the terminal was killed before cleanup completed, recover manually with:
+
+```shell
+pixi run xbox-off
+```
+
+Vary both translation and rotation around at least two axes between samples. Continue to [7.2 Confirm ChArUco Detection](#72-confirm-charuco-detection).
+
+### 7.1.2 Option B: MoveIt Motion Planning
 
 In the `Display` panel, click the `Add` button. This opens the motion planning GUI.
 
@@ -387,7 +415,7 @@ After opening the tab, drag the gizmo to translate or rotate the target pose. Th
 
 If you use this option, vary both translation and rotation between samples. Continue to [7.2 Confirm ChArUco Detection](#72-confirm-charuco-detection).
 
-### 7.1.2 Option B: Gravity Compensation
+### 7.1.3 Option C: Gravity Compensation
 
 The other option is the gravity compensation controller, which lets you physically guide the robot.
 
@@ -405,7 +433,7 @@ The other option is the gravity compensation controller, which lets you physical
 
 ---
 
-#### 7.1.2.1 Adjust the Payload Model
+#### 7.1.3.1 Adjust the Payload Model
 
 Measure the weights of:
 
@@ -477,7 +505,7 @@ pixi run payload-state
 > pixi run payload-state
 > ```
 
-#### 7.1.2.2 Sample with Gravity Compensation
+#### 7.1.3.2 Sample with Gravity Compensation
 
 After you adjust the payload, you can load the gravity compensation controller once:
 
@@ -496,7 +524,7 @@ pixi run gravity-on
 > Do not use MoveIt `Plan` or `Execute` while gravity compensation is active. Take samples by physically moving the robot, waiting for stable target detection, and clicking `Take sample`.
 
 > [!TIP]
-> If you want to switch back to 7.1.1 MoveIt motion planning, run:
+> If you want to switch back to 7.1.2 MoveIt motion planning, run:
 >
 > ```shell
 > pixi run gravity-off
@@ -506,7 +534,7 @@ When the target is visible, continue to [7.2 Confirm ChArUco Detection](#72-conf
 
 ## 7.2 Confirm ChArUco Detection
 
-Once your camera can see the ChArUco board with either motion planning or gravity compensation, go to `Display` panel > `Add` > `By topic` > `/handeye_calibration` > `target_detection` > `Image`.
+Once your camera can see the ChArUco board with your selected control method, go to `Display` panel > `Add` > `By topic` > `/handeye_calibration` > `target_detection` > `Image`.
 
 <p align="center">
   <img src="assets/target_detection.webp" width="30%" />

@@ -1,0 +1,63 @@
+[package.build.source]
+git = "https://github.com/learnsyslab/crisp_controllers.git"
+rev = "09bf59280fd4946140ca93b2c64de240049d446e"
+
+[package.build.backend]
+channels = [
+  "https://prefix.dev/pixi-build-backends",
+  "https://prefix.dev/robostack-jazzy",
+  "https://prefix.dev/conda-forge",
+]
+name = "pixi-build-ros"
+version = "*"
+
+[package.build.config]
+distro = "jazzy"
+env = { CPU_COUNT = "2", CMAKE_BUILD_PARALLEL_LEVEL = "2", EXTRA_CMAKE_ARGS = "-DBUILD_TESTING=OFF -DCMAKE_CXX_STANDARD_INCLUDE_DIRECTORIES=$PREFIX/include/pinocchio/deprecated" }
+extra-package-mappings = [
+  # CRISP means the upstream Pinocchio C++ library. Mapping this dependency to
+  # ros-jazzy-pinocchio selected an obsolete ros2-distro-mutex 0.14 build.
+  { pinocchio = { conda = "pinocchio" } },
+]
+extra-input-globs = [
+  "include/**/*.hpp",
+  "src/*.cpp",
+  "src/*.yaml",
+  "crisp_controllers.xml",
+  "CMakeLists.txt",
+  "package.xml",
+]
+
+[package.host-dependencies]
+pinocchio = ">=3.9.0,<3.10"
+ros2-distro-mutex = "0.14.*"
+ros-jazzy-ament-cmake = "*"
+ros-jazzy-controller-interface = "*"
+ros-jazzy-generate-parameter-library = "*"
+ros-jazzy-geometry-msgs = "*"
+ros-jazzy-pluginlib = "*"
+ros-jazzy-rclcpp = "*"
+ros-jazzy-rclcpp-lifecycle = "*"
+ros-jazzy-realtime-tools = "*"
+ros-jazzy-sensor-msgs = "*"
+ros-jazzy-std-msgs = "*"
+
+[package.run-dependencies]
+libpinocchio = ">=3.9.0,<3.10"
+ros-jazzy-controller-interface = "*"
+ros-jazzy-geometry-msgs = "*"
+ros-jazzy-pluginlib = "*"
+ros-jazzy-rclcpp = "*"
+ros-jazzy-rclcpp-lifecycle = "*"
+ros-jazzy-realtime-tools = "*"
+ros-jazzy-sensor-msgs = "*"
+ros-jazzy-std-msgs = "*"
+
+[workspace]
+channels = [
+  "https://prefix.dev/pixi-build-backends",
+  "https://prefix.dev/robostack-jazzy",
+  "https://prefix.dev/conda-forge",
+]
+platforms = ["linux-64"]
+preview = ["pixi-build"]

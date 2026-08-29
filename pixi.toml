@@ -27,6 +27,9 @@ payload-state = "ros2 topic echo --once /franka_robot_state_broadcaster/robot_st
 gravity-load = "ros2 run controller_manager spawner gravity_compensation_example_controller --controller-manager /controller_manager --controller-manager-timeout 60 --controller-type franka_example_controllers/GravityCompensationExampleController --inactive"
 gravity-on = "ros2 control switch_controllers --controller-manager /controller_manager --deactivate fr3_arm_controller --activate gravity_compensation_example_controller --strict"
 gravity-off = "ros2 control switch_controllers --controller-manager /controller_manager --deactivate gravity_compensation_example_controller --activate fr3_arm_controller --strict"
+xbox-teleop = "bash scripts/xbox_teleop.sh"
+xbox-off = "ros2 control switch_controllers --controller-manager /controller_manager --deactivate cartesian_controller --activate fr3_arm_controller --strict"
+test-xbox-teleop = "python -m unittest discover -s tests -p 'test_xbox_teleop.py'"
 
 [activation.env]
 CPU_COUNT="8"
@@ -52,6 +55,9 @@ ros-jazzy-franka-robot-state-broadcaster = { path = "src/franka_ros2/franka_robo
 ros-jazzy-franka-example-controllers = { path = "src/franka_ros2/franka_example_controllers" }
 ros-jazzy-franka-bringup = { path = "src/franka_ros2/franka_bringup" }
 ros-jazzy-franka-fr3-moveit-config = { path = "src/franka_ros2/franka_fr3_moveit_config" }
+ros-jazzy-crisp-controllers = { path = "src/crisp_controllers" }
+pinocchio = ">=3.9.0,<3.10"
+ros-jazzy-joy = "*"
 ros-jazzy-ros2controlcli = "*"
 ros-jazzy-rmw-zenoh-cpp = ">=0.2.9,<0.3"
 ros-jazzy-rmw-cyclonedds-cpp = ">=2.2.3,<3"
